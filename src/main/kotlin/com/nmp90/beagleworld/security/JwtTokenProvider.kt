@@ -23,11 +23,13 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.context.annotation.PropertySource
 
 @Component
 class JwtTokenProvider {
 
-    private var secretKey: String = "MySecret"
+    @Value("\${jwt.secret}")
+    private var secretKey: String = ""
 
     private val validityInMilliseconds: Long = 3600000; // 1h
 

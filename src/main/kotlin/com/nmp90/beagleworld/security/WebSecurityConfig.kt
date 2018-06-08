@@ -30,7 +30,6 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
         // Entry points
         http.authorizeRequests()//
                 .antMatchers("/users").permitAll()//
-                .antMatchers("/users").permitAll()//
                 // Disallow everything else..
                 .anyRequest().authenticated()
 
