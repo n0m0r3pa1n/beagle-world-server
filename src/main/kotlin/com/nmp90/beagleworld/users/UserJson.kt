@@ -1,6 +1,9 @@
 package com.nmp90.beagleworld.users
 
 import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
 
-data class UserJson (@get:NotEmpty val name: String, @get:NotNull val email: String)
+data class UserJson (@get:NotEmpty val name: String,
+                     @get:NotEmpty val email: String,
+                     @get:NotEmpty val accessToken: String,
+                     @get:NotEmpty val socialId: String,
+                     val socialNetwork: SocialNetworks = SocialNetworks.FACEBOOK)
