@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty
 @Document(collection = "user")
 data class User(@Id val id: String?,
                 val name: String,
+                val profilePicture: String?,
                 @Indexed(unique = true) val email: String,
                 val socialId: String,
                 @get:NotEmpty val roles: List<Role>,

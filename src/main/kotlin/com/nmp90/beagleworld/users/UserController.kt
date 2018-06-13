@@ -35,7 +35,7 @@ class UserController {
                     val token = jwtTokenProvider.createToken(newUser.email, newUser.roles)
                     val headers = HttpHeaders()
                     headers.add("Bearer", token)
-                    ResponseEntity<User>(user, headers, HttpStatus.OK)
+                    ResponseEntity(user, headers, HttpStatus.OK)
 
                 }
     }
