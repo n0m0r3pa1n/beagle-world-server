@@ -2,7 +2,7 @@ package com.nmp90.beagleworld.users
 
 import javax.validation.constraints.NotEmpty
 
-data class UserJson (@get:NotEmpty val name: String,
+data class UserJson (val name: String?,
                      @get:NotEmpty val email: String,
                      @get:NotEmpty val accessToken: String,
                      @get:NotEmpty val socialId: String,

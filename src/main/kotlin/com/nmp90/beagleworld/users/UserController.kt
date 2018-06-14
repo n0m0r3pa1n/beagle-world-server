@@ -30,12 +30,13 @@ class UserController {
     @PostMapping("/users")
     fun createUser(@Valid @RequestBody userJson: UserJson): Mono<ResponseEntity<User>>? {
         val user = userMapper.toUser(userJson, arrayListOf(Role.ROLE_CLIENT))
-        return service.createUser(user)
+        return service.findUser(user)
+                .switchIfEmpty(service.createUser(user))
                 .map { newUser ->
                     val token = jwtTokenProvider.createToken(newUser.email, newUser.roles)
                     val headers = HttpHeaders()
                     headers.add("Bearer", token)
-                    ResponseEntity(user, headers, HttpStatus.OK)
+                    ResponseEntity(newUser, headers, HttpStatus.OK)
 
                 }
     }

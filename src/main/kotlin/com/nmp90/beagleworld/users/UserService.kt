@@ -21,4 +21,8 @@ class UserService {
     fun createUser(user: User): Mono<User> {
         return repository.insert(user)
     }
+
+    fun findUser(user: User): Mono<User> {
+        return repository.findOneByEmail(user.email)
+    }
 }
