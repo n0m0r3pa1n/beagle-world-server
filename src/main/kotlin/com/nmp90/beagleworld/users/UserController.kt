@@ -1,5 +1,6 @@
 package com.nmp90.beagleworld.users
 
+import com.nmp90.beagleworld.exception.CustomException
 import com.nmp90.beagleworld.security.JwtTokenProvider
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpHeaders
@@ -38,6 +39,19 @@ class UserController {
                     headers.add("Bearer", token)
                     ResponseEntity(newUser, headers, HttpStatus.OK)
 
+                }
+    }
+
+    @PostMapping("/users/refresh")
+    fun refreshUserToken(@Valid @RequestBody userJson: UserRefreshJson): Mono<ResponseEntity<String>> {
+        return service.isValidUser(userJson.socialId, userJson.accessToken)
+                .filter { it == true }
+                .flatMap { service.findUserBySocialId(userJson.socialId) }
+                .map { user ->
+                    val token = jwtTokenProvider.createToken(user.email, user.roles)
+                    val headers = HttpHeaders()
+                    headers.add("Bearer", token)
+                    ResponseEntity(token, headers, HttpStatus.OK)
                 }
     }
 
