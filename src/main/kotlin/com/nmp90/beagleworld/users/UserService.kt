@@ -1,6 +1,8 @@
 package com.nmp90.beagleworld.users
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.autoconfigure.security.SecurityProperties
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -10,13 +12,18 @@ import reactor.core.publisher.Mono
 class UserService {
 
     @Autowired
-    private lateinit var repository: UserRepository
+    private lateinit var repository: UsersRepository
 
     @Autowired
     private lateinit var facebookTokenValidator: FacebookTokenValidator
 
     fun getUsers(): Flux<User> {
         return repository.findAll()
+    }
+
+    fun getCurrentUser(): Mono<User> {
+        val loggedUser = SecurityContextHolder.getContext().authentication.principal as org.springframework.security.core.userdetails.User
+        return repository.findOneByEmail(loggedUser.username)
     }
 
     fun createUser(user: User): Mono<User> {

@@ -7,10 +7,7 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import org.springframework.web.reactive.function.server.ServerResponse
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
@@ -29,6 +26,7 @@ class UserController {
     private lateinit var userMapper: UserMapper
 
     @PostMapping("/users")
+    @ResponseStatus(HttpStatus.CREATED)
     fun createUser(@Valid @RequestBody userJson: UserJson): Mono<ResponseEntity<User>>? {
         val user = userMapper.toUser(userJson, arrayListOf(Role.ROLE_CLIENT))
         return service.findUser(user)

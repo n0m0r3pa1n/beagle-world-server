@@ -6,6 +6,6 @@ import reactor.core.publisher.Mono
 
 
 @Repository
-interface DogRepository : ReactiveMongoRepository<Dog, String> {
+interface DogsRepository : ReactiveMongoRepository<Dog, String> {
 
 }

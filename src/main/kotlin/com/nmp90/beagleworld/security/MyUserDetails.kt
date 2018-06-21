@@ -2,7 +2,7 @@ package com.nmp90.beagleworld.security
 
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.core.userdetails.UserDetails
-import com.nmp90.beagleworld.users.UserRepository
+import com.nmp90.beagleworld.users.UsersRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service
 class MyUserDetails : UserDetailsService {
 
     @Autowired
-    private val userRepository: UserRepository? = null
+    private val usersRepository: UsersRepository? = null
 
     @Throws(UsernameNotFoundException::class)
     override fun loadUserByUsername(username: String): UserDetails {
-        val user = userRepository!!.findOneByEmail(username).block()
+        val user = usersRepository!!.findOneByEmail(username).block()
                 ?: throw UsernameNotFoundException("User '$username' not found")
 
         return org.springframework.security.core.userdetails.User
