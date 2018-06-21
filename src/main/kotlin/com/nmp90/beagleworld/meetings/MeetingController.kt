@@ -3,6 +3,7 @@ package com.nmp90.beagleworld.meetings
 import com.nmp90.beagleworld.users.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.geo.Distance
+import org.springframework.data.geo.GeoResults
 import org.springframework.data.geo.Metrics
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.annotation.*
@@ -32,7 +33,7 @@ class MeetingController {
     @GetMapping("/meetings")
     fun getMeetings(@RequestParam("lat") lat: Double,
                     @RequestParam("lng") lng: Double,
-                    @RequestParam("distance") distance: Double): Mono<List<Meeting>> {
+                    @RequestParam("distance") distance: Double): Mono<GeoResults<Meeting>> {
 
         return meetingService.getMeetingsNearby(lat, lng, Distance(distance, Metrics.KILOMETERS))
     }
