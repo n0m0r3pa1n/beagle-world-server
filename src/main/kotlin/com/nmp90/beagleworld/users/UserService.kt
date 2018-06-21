@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import com.nmp90.beagleworld.security.JwtTokenProvider
-import com.sun.org.apache.xpath.internal.operations.Bool
 
 
 @Service
@@ -35,5 +33,13 @@ class UserService {
 
     fun isValidUser(socialId: String, token: String): Mono<Boolean> {
         return facebookTokenValidator.isValidUser(socialId, token)
+    }
+
+    fun findUserById(userId: String): Mono<User> {
+        return repository.findById(userId)
+    }
+
+    fun updateUser(user: User): Mono<User> {
+        return repository.save(user)
     }
 }

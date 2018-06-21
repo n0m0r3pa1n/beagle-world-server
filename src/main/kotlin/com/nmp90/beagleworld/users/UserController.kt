@@ -54,9 +54,4 @@ class UserController {
                     ResponseEntity(token, headers, HttpStatus.OK)
                 }
     }
-
-    @GetMapping("/test")
-    fun getUsers(): Flux<User> {
-        return service.getUsers()
-    }
 }

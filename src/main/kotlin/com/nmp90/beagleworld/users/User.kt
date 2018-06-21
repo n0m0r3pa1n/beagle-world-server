@@ -1,5 +1,6 @@
 package com.nmp90.beagleworld.users
 
+import com.nmp90.beagleworld.dogs.Dog
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
@@ -13,4 +14,5 @@ data class User(@Id val id: String?,
                 val socialId: String,
                 @get:NotEmpty val roles: List<Role>,
                 val socialNetwork: SocialNetworks,
-                val accessToken: String)
+                val accessToken: String,
+                val dogs: MutableList<Dog>)
